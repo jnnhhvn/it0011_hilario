@@ -7,7 +7,7 @@ address = input("Enter Address: ")
 course = input("Enter Course: ")
 yrlevel = input("Enter Year Level: ")
 
-print("------------------------" )
+print("----------------------------" )
 print("Student Information:" )
 print("First Name:", fname)
 print("Last Name:", lname)
