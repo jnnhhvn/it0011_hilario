@@ -1,0 +1,5 @@
+000001,Okin-UwU,Okinawa milk tea with a twist of caramel,130.0
+000002,WinterMhieLon,Wintermelon milk tea with a rich creamy taste,115.0
+000003,Cheesecake Taro, Pare!,Taro milk tea topped with cheesecake foam,135.0
+000004,Matcha-Yuh! Tayo,Authentic Japanese matcha milk tea,125.0
+000005,Thai Yo Nalang,Traditional Thai milk tea with a strong flavor,120.0

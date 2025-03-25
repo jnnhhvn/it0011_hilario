@@ -10,24 +10,8 @@ class Item:
 
 class ItemManagement:
     def __init__(self):
-        self.items = {
-            "000001": Item("000001", "Okin-UwU", "Okinawa milk tea with a twist of caramel", 130),
-            "000002": Item("000002", "WinterMhieLon", "Wintermelon milk tea with a rich creamy taste", 115),
-            "000003": Item("000003", "Cheesecake Taro, Pare!", "Taro milk tea topped with cheesecake foam", 135),
-            "000004": Item("000004", "Matcha-Yuh! Tayo", "Authentic Japanese matcha milk tea", 125),
-            "000005": Item("000005", "Thai Yo Nalang", "Traditional Thai milk tea with a strong flavor", 120),
-        }
-    
-    def view_items(self):
-        if not self.items:
-            print("No items available.")
-            return
-        print("=" * 100)
-        print(f"{'ID':<6} | {'Name':<25} | {'Description':<50} | {'Price'}")
-        print("=" * 100)
-        for item in self.items.values():
-            print(item)
-        print("=" * 100)
+        self.items = {}
+        self.load_items()
     
     def add_item(self, item_id, name, description, price):
         if item_id in self.items:
@@ -41,9 +25,21 @@ class ItemManagement:
             if price <= 0:
                 raise ValueError("Price must be a positive number.")
             self.items[item_id] = Item(item_id, name, description, price)
+            self.save_items()
             print("Item added successfully!")
         except ValueError as e:
             print("Error:", e)
+    
+    def view_items(self):
+        if not self.items:
+            print("No items available.")
+            return
+        print("=" * 100)
+        print(f"{'ID':<6} | {'Name':<25} | {'Description':<50} | {'Price'}")
+        print("=" * 100)
+        for item in self.items.values():
+            print(item)
+        print("=" * 100)
     
     def update_item(self, item_id, name=None, description=None, price=None):
         if item_id not in self.items:
@@ -64,6 +60,7 @@ class ItemManagement:
                 print("Error:", e)
                 return
         
+        self.save_items()
         print("Item updated successfully!")
     
     def delete_item(self, item_id):
@@ -71,7 +68,22 @@ class ItemManagement:
             print("Error: Item ID not found.")
             return
         del self.items[item_id]
+        self.save_items()
         print("Item deleted successfully!")
+    
+    def save_items(self):
+        with open("items.txt", "w") as file:
+            for item in self.items.values():
+                file.write(f"{item.item_id},{item.name},{item.description},{item.price}\n")
+    
+    def load_items(self):
+        try:
+            with open("items.txt", "r") as file:
+                for line in file:
+                    item_id, name, description, price = line.strip().split(",")
+                    self.items[item_id] = Item(item_id, name, description, float(price))
+        except FileNotFoundError:
+            pass
 
 def main():
     manager = ItemManagement()
@@ -112,6 +124,6 @@ def main():
             break
         else:
             print("Invalid choice. Please try again.")
-
+            
 if __name__ == "__main__":
     main()
